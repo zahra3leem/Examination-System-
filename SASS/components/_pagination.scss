@@ -1,0 +1,20 @@
+.pag-btn {
+  background-color: $dark-green !important;
+  color: white !important;
+  font-size: 18px;
+  font-weight: 600;
+  cursor: pointer;
+  &:hover {
+    background-color: white !important;
+    color: $dark-green !important;
+    outline: 2px solid $dark-green !important;
+    transition: 0.2s;
+  }
+}
+.active-pag-ptn {
+  background-color: white !important;
+  color: $dark-green !important;
+  border: 1px solid $dark-green !important;
+  font-size: 18px;
+  font-weight: 600;
+}

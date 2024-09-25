@@ -1,0 +1,93 @@
+.subm-button {
+  width: 29%;
+  background-color: $dark-green;
+  display: flex;
+  justify-content: center;
+  border-radius: 5px;
+
+  &:hover {
+    color: $dark-green;
+    background-color: white;
+    outline: 3px solid $dark-green;
+    transition: 0.2s;
+  }
+
+  button {
+    color: white;
+    font-size: 18px;
+    font-weight: 600;
+
+    :hover {
+      color: $dark-green;
+    }
+  }
+}
+
+.dont {
+  text-decoration: none;
+  color: $dark-green;
+  font-weight: 600;
+
+  &:hover {
+    text-decoration: none;
+    color: $dark-green;
+    font-weight: 600;
+  }
+}
+
+.log-out {
+  background-color: red;
+  color: white;
+  font-size: 18px;
+  font-weight: 600;
+  margin-bottom: 10px;
+  &:hover {
+    background-color: white;
+    color: white;
+    transition: 0.2s;
+  }
+}
+
+.btn-custom {
+  background-color: white;
+  color: $dark-green;
+  outline: 2px solid $dark-green;
+  &:hover {
+    color: white;
+    background-color: $dark-green;
+  }
+}
+
+.btn-custom2 {
+  background-color: $dark-green;
+  color: white;
+  &:hover {
+    background-color: white;
+    color: $dark-green;
+    outline: 2px solid $dark-green;
+  }
+}
+
+.btn-start {
+  background-color: $dark-green;
+  color: white;
+  font-weight: 600;
+
+  &:hover {
+    color: white;
+    background-color: $dark-green;
+  }
+}
+
+.width-40 {
+  width: 40%;
+}
+// .btn-custom-hover:hover {
+//   background-color: white;
+//   color: $dark-green;
+//   outline: 2px solid $dark-green;
+// }
+
+.hidden-btn {
+  visibility: hidden;
+}

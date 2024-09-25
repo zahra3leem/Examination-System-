@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Quiz Modal</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <style>
+    .correct-answer {
+      background-color: #d4edda;
+    }
+    .wrong-answer {
+      background-color: #f8d7da;
+    }
+    .correct-question {
+      border: 2px solid green;
+      padding: 10px;
+    }
+    .wrong-question {
+      border: 2px solid red;
+      padding: 10px;
+    }
+    .question-score {
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+    Open Quiz
+  </button>
+
+  <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Quiz - <span id="total-score">0/10</span></h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body" id="quiz-container">
+          <!-- الأسئلة ستُضاف هنا -->
+        </div>
+        <div class="modal-footer">
+          <!-- سيتم إخفاء الأزرار هنا -->
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  <script>
+    const questions = [
+      {"text":"What is 2+2?","options":[{"text":"3","isCorrect":false,"questionNumber":1},{"text":"4","isCorrect":true,"questionNumber":1},{"text":"5","isCorrect":false,"questionNumber":1},{"text":"6","isCorrect":false,"questionNumber":1}],"type":"single"},
+      {"text":"What is the square root of 16?","options":[{"text":"2","isCorrect":false,"questionNumber":2},{"text":"4","isCorrect":true,"questionNumber":2},{"text":"6","isCorrect":false,"questionNumber":2},{"text":"8","isCorrect":false,"questionNumber":2}],"type":"single"},
+      {"text":"What is 5+3?","options":[{"text":"7","isCorrect":false,"questionNumber":3},{"text":"8","isCorrect":true,"questionNumber":3},{"text":"9","isCorrect":false,"questionNumber":3},{"text":"10","isCorrect":false,"questionNumber":3}],"type":"single"},
+      {"text":"What is 7*6?","options":[{"text":"42","isCorrect":true,"questionNumber":4},{"text":"36","isCorrect":false,"questionNumber":4},{"text":"48","isCorrect":false,"questionNumber":4},{"text":"52","isCorrect":false,"questionNumber":4}],"type":"single"},
+      {"text":"What is the value of pi (π) to two decimal places?","options":[{"text":"3.12","isCorrect":false,"questionNumber":5},{"text":"3.14","isCorrect":true,"questionNumber":5},{"text":"3.16","isCorrect":false,"questionNumber":5},{"text":"3.18","isCorrect":false,"questionNumber":5}],"type":"single"},
+      {"text":"What is 9/3?","options":[{"text":"2","isCorrect":false,"questionNumber":6},{"text":"3","isCorrect":true,"questionNumber":6},{"text":"4","isCorrect":false,"questionNumber":6},{"text":"5","isCorrect":false,"questionNumber":6}],"type":"single"},
+      {"text":"What is the cube root of 27?","options":[{"text":"2","isCorrect":false,"questionNumber":7},{"text":"3","isCorrect":true,"questionNumber":7},{"text":"4","isCorrect":false,"questionNumber":7},{"text":"5","isCorrect":false,"questionNumber":7}],"type":"single"},
+      {"text":"What is 15-6?","options":[{"text":"7","isCorrect":false,"questionNumber":8},{"text":"9","isCorrect":true,"questionNumber":8},{"text":"11","isCorrect":false,"questionNumber":8},{"text":"13","isCorrect":false,"questionNumber":8}],"type":"single"},
+      {"text":"What is the result of 3*3?","options":[{"text":"6","isCorrect":false,"questionNumber":9},{"text":"9","isCorrect":true,"questionNumber":9},{"text":"12","isCorrect":false,"questionNumber":9},{"text":"15","isCorrect":false,"questionNumber":9}],"type":"single"},
+      {"text":"What is 12+4?","options":[{"text":"15","isCorrect":false,"questionNumber":10},{"text":"16","isCorrect":true,"questionNumber":10},{"text":"17","isCorrect":false,"questionNumber":10},{"text":"18","isCorrect":false,"questionNumber":10}],"type":"single"}
+    ];
+
+    const userAnswers = [
+      {"questionNum":0,"arrAnswer":["0","1"]},
+      {"questionNum":1,"arrAnswer":["0","3"]},
+      {"questionNum":2,"arrAnswer":null},
+      {"questionNum":3,"arrAnswer":["2"]},
+      {"questionNum":4,"arrAnswer":["1"]},
+      {"questionNum":5,"arrAnswer":["1"]},
+      {"questionNum":6,"arrAnswer":["1"]},
+      {"questionNum":7,"arrAnswer":["3"]},
+      {"questionNum":8,"arrAnswer":["1"]},
+      {"questionNum":9,"arrAnswer":["0"]}
+    ];
+    $(document).ready(function() {
+      const quizContainer = $('#quiz-container');
+      let totalCorrectAnswers = 0;
+
+      questions.forEach((question, index) => {
+        const questionHtml = `
+          <div class="question" id="question${index}">
+            <h5>${index + 1}. ${question.text} - <span class="question-score" id="score${index}">0/1</span></h5>
+            ${question.options.map((option, optionIndex) => `
+              <div class="form-check">
+                <input class="form-check-input" type="checkbox" name="question${index}" id="question${index}-option${optionIndex}" value="${optionIndex}" disabled>
+                <label class="form-check-label" for="question${index}-option${optionIndex}">
+                  ${option.text}
+                </label>
+              </div>
+            `).join('')}
+          </div>
+          <hr>
+        `;
+        
+        quizContainer.append(questionHtml);
+      });
+
+      userAnswers.forEach(answer => {
+        if (answer !== null) {
+          const questionNum = answer.questionNum;
+          const selectedOptions = answer.arrAnswer || [];
+          const correctOptions = questions[questionNum].options
+            .map((option, index) => option.isCorrect ? index.toString() : null)
+            .filter(index => index !== null);
+
+          // ضبط الخيارات المحددة
+          selectedOptions.forEach(optionIndex => {
+            $(`#question${questionNum}-option${optionIndex}`).prop('checked', true);
+            if (questions[questionNum].options[optionIndex].isCorrect) {
+              $(`#question${questionNum}-option${optionIndex}`).parent().addClass('correct-answer');
+            } else {
+              $(`#question${questionNum}-option${optionIndex}`).parent().addClass('wrong-answer');
+            }
+          });
+
+          // تلوين الإجابات الصحيحة المتبقية
+          correctOptions.forEach(optionIndex => {
+            if (!selectedOptions.includes(optionIndex)) {
+              $(`#question${questionNum}-option${optionIndex}`).parent().addClass('correct-answer');
+            }
+          });
+
+          // تحديد إذا كانت الإجابات كلها صحيحة
+          const allCorrect = selectedOptions.length === correctOptions.length &&
+                             selectedOptions.every(option => correctOptions.includes(option));
+          
+          // تلوين حدود السؤال
+          if (allCorrect) {
+            $(`#question${questionNum}`).addClass('correct-question');
+            totalCorrectAnswers++;
+            $(`#score${questionNum}`).text("1/1");
+          } else {
+            $(`#question${questionNum}`).addClass('wrong-question');
+            $(`#score${questionNum}`).text("0/1");
+          }
+        } else {
+          // معالجة حالة null
+          $(`#question${index}`).addClass('wrong-question');
+          $(`#score${index}`).text("0/1");
+        }
+      });
+
+      // عرض النتيجة الإجمالية
+      $('#total-score').text(`${totalCorrectAnswers}/${questions.length}`);
+      $('.modal-footer').hide();
+    });
+  </script>
+</body>
+</html>

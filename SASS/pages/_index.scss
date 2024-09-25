@@ -1,0 +1,82 @@
+.home-body {
+    background-image: url("/bgN.png");
+    background-size: cover;
+    /* تغطية الصفحة بالكامل بالصورة */
+    background-repeat: no-repeat;
+    /* منع تكرار الصورة */
+    height: 100vh;
+    width: 100%;
+    margin: 0;
+    background-attachment: fixed; 
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+@media (max-width: 991px) { /* Bootstrap's 'lg' breakpoint is 992px and up */
+    .home-body {
+        overflow: auto; /* Prevent scrolling */
+    }
+}
+.carousel-item {
+    height: 100vh;
+    /* تعيين ارتفاع كل عنصر كاروسيل ليغطي الشاشة بالكامل */
+}
+
+.carousel-inner {
+    height: 100%;
+    /* تعيين ارتفاع الكاروسيل ليملأ العنصر الأب */
+}
+.home-h1{
+    color: $dark-green;
+}
+.svg {
+    max-height: 80%;
+    /* تحديد أقصى ارتفاع للـ SVG بحيث يتناسب مع الشاشة */
+    margin-left: auto;
+    margin-right: auto;
+}
+@keyframes fromLeft {
+    from {
+        opacity: 0;
+        transform: translateX(-100px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+@keyframes fromTop {
+    from {
+        opacity: 0;
+        transform: translateY(-100px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes fromBottom {
+    from {
+        opacity: 0;
+        transform: translateY(100px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Apply animations */
+.animate-from-top {
+    animation: fromTop 1.5s ease-out forwards;
+}
+
+.animate-from-left {
+    animation: fromLeft 1.5s ease-out forwards;
+}
+.animate-from-bottom {
+    animation: fromBottom 1.5s ease-out forwards;
+}
+
+/* Ensure that the parent container takes full height */

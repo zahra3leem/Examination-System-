@@ -1,0 +1,47 @@
+.hom-body{
+    background-image: url("/bgH.png");
+    background-size: cover;
+    background-repeat: no-repeat;
+    height: 100vh;
+    width: 100%;
+    margin: 0;
+    background-attachment: fixed; /* Ensures the background stays fixed */
+
+   
+}
+.container {
+    max-width: 1200px;
+    margin-top: 20px;
+}
+
+.create-test-card{
+    background-color: white;
+    padding: 20px;
+    border-radius: 16px;
+    height: 50%;
+    margin-bottom: 20px;
+}
+.test-item {
+    padding: 15px;
+    margin-bottom: 20px;
+    background-color: #f7f7f7;
+    border-radius: 8px;
+    
+}
+.test-item h4 {
+    margin-bottom: 15px;
+    text-transform: capitalize;
+
+}
+.test-item p{
+    color: $dark-green;
+}
+.test-actions {
+    margin-top: 15px;
+    display: flex;
+    
+}
+.test-actions button{
+    width: 50%; 
+    margin-left: 10px;
+}
